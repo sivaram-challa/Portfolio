@@ -1,0 +1,9 @@
+.description-container {
+    max-height: 4.5em; /* Adjust this value as needed based on your font-size and line-height */
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+}
+
+.description-container.expanded {
+    max-height: 20em; /* A large value to ensure it expands fully, adjust as needed */
+}
