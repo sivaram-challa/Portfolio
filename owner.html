@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Dashboard - Sivaram Challa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+        .card {
+            background-color: #161b22;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+            margin-bottom: 1rem;
+        }
+        button {
+            background-color: #58a6ff;
+            color: #0d1117;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #79c0ff;
+        }
+        .delete-btn {
+            background-color: #f85149;
+        }
+        .delete-btn:hover {
+            background-color: #ff7b72;
+        }
+        .text-area-copy {
+            background-color: #1f242d;
+            border: 1px dashed #30363d;
+            color: #c9d1d9;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: monospace;
+            white-space: pre;
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="login-form" class="container text-center">
+        <h1 class="text-3xl font-bold text-white mb-4">Owner Login</h1>
+        <input type="password" id="password-input" placeholder="Enter your secret password">
+        <button onclick="login()">Login</button>
+    </div>
+
+    <div id="owner-dashboard" class="hidden container">
+        <h1 class="text-4xl font-bold text-white mb-8 text-center">Owner Dashboard</h1>
+
+        <div id="add-blog-post-section" class="card">
+            <h2 class="text-2xl font-semibold text-white mb-4">Add New Blog Post</h2>
+            <input type="text" id="blog-title" placeholder="Blog Post Title">
+            <input type="text" id="blog-date" placeholder="Date (e.g., September 8, 2025)">
+            <textarea id="blog-summary" placeholder="Blog Post Summary"></textarea>
+            <input type="text" id="blog-url" placeholder="Blog Post URL">
+            <button onclick="addBlogPost()">Add Blog Post</button>
+        </div>
+
+        <div id="add-project-section" class="card">
+            <h2 class="text-2xl font-semibold text-white mb-4">Add New Project</h2>
+            <input type="text" id="project-title" placeholder="Project Title">
+            <textarea id="project-description" placeholder="Project Description"></textarea>
+            <input type="text" id="project-image" placeholder="Image URL">
+            <input type="text" id="project-source-url" placeholder="Source Code URL">
+            <button onclick="addProject()">Add Project</button>
+        </div>
+
+        <div id="content-list-section" class="card">
+            <h2 class="text-2xl font-semibold text-white mb-4">Current Content</h2>
+            
+            <h3 class="text-xl font-semibold text-white mb-2">Projects</h3>
+            <div id="projects-list"></div>
+
+            <h3 class="text-xl font-semibold text-white mt-8 mb-2">Blog Posts</h3>
+            <div id="blog-posts-list"></div>
+        </div>
+
+        <div id="output-section" class="card">
+            <h2 class="text-2xl font-semibold text-white mb-4">Copy & Paste to `portfolio.html`</h2>
+            <p class="text-[#8b949e]">Copy the updated arrays below and paste them into your `portfolio.html` file to update your live site.</p>
+            <div id="output-box" class="text-area-copy"></div>
+            <button onclick="copyToClipboard()">Copy to Clipboard</button>
+        </div>
+
+    </div>
+
+    <script>
+        const blogPostsData = [
+            {
+                title: "Tudip Bound: My Journey as a New Associate Software Developer",
+                date: "September 8, 2025",
+                summary: "Today marks the beginning of an incredible new journey for me. I am thrilled to announce that I have joined Tudip Technologies as an Associate Software Developer! 🚀 This is more than just a job; it's an opportunity to grow, learn from some of the best in the industry, and contribute to innovative projects that make a real impact.Exploring how custom hooks can help you write cleaner, more reusable code and abstract away complex logic...",
+                url: "#"
+            },
+            {
+                title: "Breaking the 1600 Barrier: My Competitive Coding Journey...!",
+                date: "January 22, 2025",
+                summary: "Today marks a significant milestone in my journey as a competitive programmer. I'm thrilled to announce that I've officially surpassed the 1600 rating mark on CodeChef, reaching a personal best of 1644. This achievement is more than just a number; it's a testament to the countless hours I've dedicated to honing my skills, the frustrating debugging sessions, and the exhilarating feeling of solving a challenging problem. This journey has been a rollercoaster of emotions, filled with moments of self-doubt and triumph.",
+                url: "#"
+            },
+        ];
+
+        const projectsData = [
+            {
+                title: "AI Note Summarizer",
+                description: "This project is a smart note-taking app that helps you better understand your notes. It uses a bit of clever code to do two things: it gives you a short summary of what you wrote and it figures out the feeling or mood of your notes, like if they sound happy or sad.",
+                image: "https://placehold.co/600x400/21262d/c9d1d9?text=AI+Note+Summarizer",
+                sourceCodeUrl: "https://github.com/sivaram-challa"
+            },
+            {
+                title: "Disease Predictor Bot",
+                description: "An AI predictive model that analyzes patient scans using a vg-19 neural network to identify potential diseases. The project features a full-stack architecture with JavaScript, React.js, and Node.js for the frontend and Python with Flask Server for the backend, utilizing MongoDB for database management.",
+                image: "https://placehold.co/600x400/21262d/c9d1d9?text=Disease+Predictor+Bot",
+                sourceCodeUrl: "https://github.com/sivaram-challa"
+            },
+            {
+                title: "Event Planner",
+                description: "A centralized platform designed to streamline event planning and coordination. It provides a hub for event details, schedules, and logistics, ensuring seamless communication among attendees. The tech stack is built on Spring Boot, using Spring MVC, Spring Socket, Spring Security, and Spring Data JPA.",
+                image: "https://placehold.co/600x400/21262d/c9d1d9?text=Event+Planner",
+                sourceCodeUrl: "https://github.com/sivaram-challa"
+            },
+            {
+                title: "Auto Synthesizer",
+                description: "The Auto Synthesizer is a genetic data generation tool developed using Python. This project utilizes leading data synthesis libraries, including the CTGAN, TVAE, and Gaussian Copula synthesizers, to create high-quality synthetic metadata that accurately mirrors real-world genetic datasets without compromising privacy.",
+                image: "https://placehold.co/600x400/21262d/c9d1d9?text=Auto+Synthesizer",
+                sourceCodeUrl: "https://github.com/sivaram-challa"
+            }
+        ];
+
+        const SECRET_PASSWORD = "RameshMadhaviChetanaSivaram"; // **CHANGE THIS TO A SECURE PASSWORD**
+
+        function login() {
+            const password = document.getElementById('password-input').value;
+            if (password === SECRET_PASSWORD) {
+                document.getElementById('login-form').classList.add('hidden');
+                document.getElementById('owner-dashboard').classList.remove('hidden');
+                renderContent();
+            } else {
+                alert("Incorrect password.");
+            }
+        }
+
+        function renderContent() {
+            const projectsList = document.getElementById('projects-list');
+            projectsList.innerHTML = '';
+            projectsData.forEach((project, index) => {
+                const projectDiv = document.createElement('div');
+                projectDiv.className = 'flex justify-between items-center bg-[#1f242d] p-4 rounded-md mb-2';
+                projectDiv.innerHTML = `
+                    <p class="text-white">${project.title}</p>
+                    <button class="delete-btn py-1 px-3" onclick="deleteProject(${index})">Delete</button>
+                `;
+                projectsList.appendChild(projectDiv);
+            });
+
+            const blogPostsList = document.getElementById('blog-posts-list');
+            blogPostsList.innerHTML = '';
+            blogPostsData.forEach((post, index) => {
+                const postDiv = document.createElement('div');
+                postDiv.className = 'flex justify-between items-center bg-[#1f242d] p-4 rounded-md mb-2';
+                postDiv.innerHTML = `
+                    <p class="text-white">${post.title}</p>
+                    <button class="delete-btn py-1 px-3" onclick="deleteBlogPost(${index})">Delete</button>
+                `;
+                blogPostsList.appendChild(postDiv);
+            });
+
+            updateOutput();
+        }
+
+        function addBlogPost() {
+            const title = document.getElementById('blog-title').value;
+            const date = document.getElementById('blog-date').value;
+            const summary = document.getElementById('blog-summary').value;
+            const url = document.getElementById('blog-url').value;
+
+            if (title && date && summary && url) {
+                blogPostsData.unshift({ title, date, summary, url });
+                clearForm('blog');
+                renderContent();
+            } else {
+                alert("Please fill all blog post fields.");
+            }
+        }
+
+        function deleteBlogPost(index) {
+            if (confirm("Are you sure you want to delete this blog post?")) {
+                blogPostsData.splice(index, 1);
+                renderContent();
+            }
+        }
+
+        function addProject() {
+            const title = document.getElementById('project-title').value;
+            const description = document.getElementById('project-description').value;
+            const image = document.getElementById('project-image').value;
+            const sourceCodeUrl = document.getElementById('project-source-url').value;
+
+            if (title && description && image && sourceCodeUrl) {
+                projectsData.unshift({ title, description, image, sourceCodeUrl });
+                clearForm('project');
+                renderContent();
+            } else {
+                alert("Please fill all project fields.");
+            }
+        }
+
+        function deleteProject(index) {
+            if (confirm("Are you sure you want to delete this project?")) {
+                projectsData.splice(index, 1);
+                renderContent();
+            }
+        }
+
+        function clearForm(type) {
+            if (type === 'blog') {
+                document.getElementById('blog-title').value = '';
+                document.getElementById('blog-date').value = '';
+                document.getElementById('blog-summary').value = '';
+                document.getElementById('blog-url').value = '';
+            } else if (type === 'project') {
+                document.getElementById('project-title').value = '';
+                document.getElementById('project-description').value = '';
+                document.getElementById('project-image').value = '';
+                document.getElementById('project-source-url').value = '';
+            }
+        }
+
+        function updateOutput() {
+            const outputBox = document.getElementById('output-box');
+            const projectsString = JSON.stringify(projectsData, null, 4);
+            const blogPostsString = JSON.stringify(blogPostsData, null, 4);
+            outputBox.textContent = `
+// --- Copy this section and paste into your portfolio.html file ---
+
+const projectsData = ${projectsString};
+            
+const blogPostsData = ${blogPostsString};
+
+// -----------------------------------------------------------------
+            `;
+        }
+        
+        function copyToClipboard() {
+            const outputBox = document.getElementById('output-box');
+            const textToCopy = outputBox.textContent;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert("Content copied to clipboard!");
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+
+</body>
+</html>
