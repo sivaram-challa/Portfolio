@@ -64,6 +64,17 @@
             overflow-x: auto;
             margin-top: 1rem;
         }
+        /* Style the date input to match the other inputs */
+        input[type="date"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+        /* Style the calendar icon for consistency */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
     </style>
 </head>
 <body>
@@ -80,9 +91,9 @@
         <div id="add-blog-post-section" class="card">
             <h2 class="text-2xl font-semibold text-white mb-4">Add New Blog Post</h2>
             <input type="text" id="blog-title" placeholder="Blog Post Title">
-            <input type="text" id="blog-date" placeholder="Date (e.g., September 8, 2025)">
-            <textarea id="blog-summary" placeholder="Blog Post Summary"></textarea>
-            <input type="text" id="blog-url" placeholder="Blog Post URL">
+            <input type="date" id="blog-date-input" placeholder="Select Date">
+            <textarea id="blog-summary" placeholder="Blog Post Summary (short preview)"></textarea>
+            <textarea id="blog-content" placeholder="Full Blog Post Content"></textarea>
             <button onclick="addBlogPost()">Add Blog Post</button>
         </div>
 
@@ -111,26 +122,29 @@
             <div id="output-box" class="text-area-copy"></div>
             <button onclick="copyToClipboard()">Copy to Clipboard</button>
         </div>
-
     </div>
 
     <script>
-        const blogPostsData = [
+        let blogPostsData = [
             {
+                id: "tudip-journey",
                 title: "Tudip Bound: My Journey as a New Associate Software Developer",
                 date: "September 8, 2025",
-                summary: "Today marks the beginning of an incredible new journey for me. I am thrilled to announce that I have joined Tudip Technologies as an Associate Software Developer! 🚀 This is more than just a job; it's an opportunity to grow, learn from some of the best in the industry, and contribute to innovative projects that make a real impact.Exploring how custom hooks can help you write cleaner, more reusable code and abstract away complex logic...",
-                url: "#"
+                summary: "Today marks the beginning of an incredible new journey for me. I am thrilled to announce that I have joined Tudip Technologies as an Associate Software Developer! 🚀 This is more than just a job; it's an opportunity to grow, learn from some of the best in the industry, and contribute to innovative projects that make a real impact.",
+                content: "Today marks the beginning of an incredible new journey for me. I am thrilled to announce that I have joined Tudip Technologies as an Associate Software Developer! This is more than just a job; it's an opportunity to grow, learn from some of the best in the industry, and contribute to innovative projects that make a real impact. This is the full blog post content.",
+                url: "blog-post-template.html?id=tudip-journey"
             },
             {
+                id: "competitive-coding",
                 title: "Breaking the 1600 Barrier: My Competitive Coding Journey...!",
                 date: "January 22, 2025",
-                summary: "Today marks a significant milestone in my journey as a competitive programmer. I'm thrilled to announce that I've officially surpassed the 1600 rating mark on CodeChef, reaching a personal best of 1644. This achievement is more than just a number; it's a testament to the countless hours I've dedicated to honing my skills, the frustrating debugging sessions, and the exhilarating feeling of solving a challenging problem. This journey has been a rollercoaster of emotions, filled with moments of self-doubt and triumph.",
-                url: "#"
+                summary: "Today marks a significant milestone in my journey as a competitive programmer. I'm thrilled to announce that I've officially surpassed the 1600 rating mark on CodeChef, reaching a personal best of 1644.",
+                content: "Today marks a significant milestone in my journey as a competitive programmer. I'm thrilled to announce that I've officially surpassed the 1600 rating mark on CodeChef, reaching a personal best of 1644. This achievement is more than just a number; it's a testament to the countless hours I've dedicated to honing my skills, the frustrating debugging sessions, and the exhilarating feeling of solving a challenging problem. This journey has been a rollercoaster of emotions, filled with moments of self-doubt and triumph.",
+                url: "blog-post-template.html?id=competitive-coding"
             },
         ];
 
-        const projectsData = [
+        let projectsData = [
             {
                 title: "AI Note Summarizer",
                 description: "This project is a smart note-taking app that helps you better understand your notes. It uses a bit of clever code to do two things: it gives you a short summary of what you wrote and it figures out the feeling or mood of your notes, like if they sound happy or sad.",
@@ -200,12 +214,19 @@
 
         function addBlogPost() {
             const title = document.getElementById('blog-title').value;
-            const date = document.getElementById('blog-date').value;
+            const date = document.getElementById('blog-date-input').value; // Get value from date input
             const summary = document.getElementById('blog-summary').value;
-            const url = document.getElementById('blog-url').value;
+            const content = document.getElementById('blog-content').value;
 
-            if (title && date && summary && url) {
-                blogPostsData.unshift({ title, date, summary, url });
+            const dateObj = new Date(date);
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedDate = dateObj.toLocaleDateString('en-US', options);
+
+            const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+            const url = `blog-post-template.html?id=${id}`;
+
+            if (title && date && summary && content) {
+                blogPostsData.unshift({ id, title, date: formattedDate, summary, content, url });
                 clearForm('blog');
                 renderContent();
             } else {
@@ -245,9 +266,9 @@
         function clearForm(type) {
             if (type === 'blog') {
                 document.getElementById('blog-title').value = '';
-                document.getElementById('blog-date').value = '';
+                document.getElementById('blog-date-input').value = '';
                 document.getElementById('blog-summary').value = '';
-                document.getElementById('blog-url').value = '';
+                document.getElementById('blog-content').value = '';
             } else if (type === 'project') {
                 document.getElementById('project-title').value = '';
                 document.getElementById('project-description').value = '';
@@ -260,9 +281,11 @@
             const outputBox = document.getElementById('output-box');
             const projectsString = JSON.stringify(projectsData, null, 4);
             const blogPostsString = JSON.stringify(blogPostsData, null, 4);
+            
+            localStorage.setItem('blogPostsData', blogPostsString);
+
             outputBox.textContent = `
 // --- Copy this section and paste into your portfolio.html file ---
-
 const projectsData = ${projectsString};
             
 const blogPostsData = ${blogPostsString};
@@ -281,6 +304,5 @@ const blogPostsData = ${blogPostsString};
             });
         }
     </script>
-
 </body>
 </html>
