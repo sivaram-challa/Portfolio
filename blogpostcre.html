@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="data.js"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -49,8 +50,6 @@
     </footer>
 
     <script>
-        const blogPostsData = JSON.parse(localStorage.getItem('blogPostsData')) || [];
-        
         document.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
             const postId = params.get('id');

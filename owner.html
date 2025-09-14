@@ -223,7 +223,7 @@
             const formattedDate = dateObj.toLocaleDateString('en-US', options);
 
             const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-            const url = `blog-post-template.html?id=${id}`;
+            const url = `blogpostcre.html?id=${id}`;
 
             if (title && date && summary && content) {
                 blogPostsData.unshift({ id, title, date: formattedDate, summary, content, url });

@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="data.js"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -33,19 +34,68 @@
         }
 
         .description-container {
-            max-height: 4.5em; /* Adjust this value as needed based on your font-size and line-height */
+            max-height: 4.5em;
             overflow: hidden;
             transition: max-height 0.5s ease-in-out;
         }
 
         .description-container.expanded {
-            max-height: 20em; /* A large value to ensure it expands fully, adjust as needed */
+            max-height: 20em;
+        }
+        
+        /* Modal styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.5s ease;
+        }
+
+        .modal.open {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-image {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            max-height: 100vh;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #ccc;
         }
     </style>
 </head>
 <body class="overflow-x-hidden">
 
-    <!-- Header and Navigation -->
     <header class="w-full py-4 px-6 md:px-12 fixed top-0 z-50 bg-[#0d1117] bg-opacity-80 backdrop-blur-sm transition-all duration-300">
         <nav class="container mx-auto flex justify-between items-center">
             <a href="#" class="text-2xl font-bold text-gray-500 hover:text-[#58a6ff] transition-colors duration-200">
@@ -61,14 +111,13 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <main class="w-full">
         <section id="hero" class="relative flex flex-col items-center justify-center min-h-screen px-6 text-center pt-24 pb-12 fade-in">
             <div class="absolute inset-0 bg-cover bg-center opacity-10" style="background-image: url('https://placehold.co/1920x1080/0d1117/1f242d?text=Background');"></div>
             <div class="relative z-10 max-w-4xl mx-auto">
-                <div class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden mb-6 mx-auto border-4 border-[#21262d] shadow-lg">
-                    <img src="https://placehold.co/160x160/21262d/c9d1d9?text=Profile" alt="Profile Picture" class="w-full h-full object-cover">
-                </div>
+                <a href="javascript:void(0)" id="profile-link" class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden mb-6 mx-auto border-4 border-[#21262d] shadow-lg block">
+                    <img src="Sivaram_Challa_Dp.jpeg" alt="Sivaram Challa's Profile Picture" id="profile-img" class="w-full h-full object-cover">
+                </a>
                 <p class="text-xl md:text-2xl font-medium text-[#8b949e] mb-2">Hello, I'm <span class="text-[#58a6ff] font-bold">Sivaram Challa</span>.</p>
                 <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4">
                     Software Developer
@@ -88,7 +137,6 @@
 
         <div class="section-separator container mx-auto mb-16"></div>
 
-        <!-- About Section -->
         <section id="about" class="container mx-auto px-6 md:px-12 py-16 fade-in">
             <h2 class="text-4xl font-bold text-center text-white mb-4">About Me</h2>
             <p class="text-center text-lg text-[#8b949e] max-w-3xl mx-auto mb-12">A little bit about my journey and the technologies I love to work with.</p>
@@ -135,23 +183,19 @@
 
         <div class="section-separator container mx-auto mb-16"></div>
 
-        <!-- Projects Section -->
         <section id="projects" class="container mx-auto px-6 md:px-12 py-16 fade-in">
             <h2 class="text-4xl font-bold text-center text-white mb-4">Featured Projects</h2>
             <p class="text-justify text-lg text-[#8b949e] max-w-3xl mx-auto mb-12">A selection of my recent work that showcases my skills and passion for development.</p>
             <div id="projects-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project cards will be rendered here by JavaScript -->
             </div>
         </section>
 
         <div class="section-separator container mx-auto mb-16"></div>
 
-        <!-- Blog Section -->
         <section id="blog" class="container mx-auto px-6 md:px-12 py-16 fade-in">
             <h2 class="text-4xl font-bold text-center text-white mb-4">Recent Blog Posts</h2>
             <p class="text-center text-lg text-[#8b949e] max-w-3xl mx-auto mb-12">I love sharing my knowledge and insights. Here's a glimpse into what I've been writing about.</p>
             <div id="blog-posts-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Blog post cards will be rendered here by JavaScript -->
             </div>
             <div class="text-center mt-12">
                 <a href="#" class="inline-block bg-transparent border-2 border-[#58a6ff] text-[#58a6ff] py-3 px-8 rounded-full font-semibold text-lg hover:bg-[#58a6ff] hover:text-gray-900 transition-colors duration-200 shadow-xl">View All Posts</a>
@@ -160,12 +204,10 @@
 
         <div class="section-separator container mx-auto mb-16"></div>
 
-        <!-- Contact Section -->
         <section id="contact" class="container mx-auto px-6 md:px-12 py-16 text-center fade-in">
             <h2 class="text-4xl font-bold text-white mb-4">Get in Touch</h2>
             <p class="text-lg text-[#8b949e] max-w-3xl mx-auto mb-12">I'm always open to new opportunities and collaborations. Feel free to connect with me on these platforms.</p>
             <div class="flex justify-center space-x-6">
-                <!-- Social Links -->
                 <a href="https://github.com/sivaram-challa" class="text-[#c9d1d9] hover:text-[#58a6ff] transition-colors duration-200">
                     <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.6.111.82-.25.82-.557 0-.275-.015-1.127-.015-2.235-3.097.674-3.754-1.493-3.754-1.493-.505-1.281-1.232-1.62-1.232-1.62-1.002-.686.079-.672.079-.672 1.111.079 1.696 1.144 1.696 1.144.986 1.696 2.585 1.205 3.212.923.1-.715.385-1.205.702-1.478-2.463-.266-5.043-1.232-5.043-5.474 0-1.21.432-2.197 1.144-2.978-.114-.266-.499-1.405.109-2.931 0 0 .93-.298 3.033 1.139.886-.247 1.832-.371 2.756-.375.924.004 1.87.128 2.756.375 2.102-1.437 3.032-1.139 3.032-1.139.613 1.526.228 2.665.114 2.931.713.781 1.145 1.768 1.145 2.978 0 4.254-2.583 5.204-5.053 5.467.4.347.794.998.794 2.016 0 1.453-.013 2.628-.013 2.976 0 .309.215.672.825.558 4.767-1.588 8.203-6.085 8.203-11.387c0-6.627-5.373-12-12-12z"></path>
@@ -178,14 +220,20 @@
                 </a>
                 <a href="#" class="text-[#c9d1d9] hover:text-[#58a6ff] transition-colors duration-200">
                     <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.898-.957-2.175-1.558-3.595-1.558-3.545 0-6.427 2.882-6.427 6.427 0 .502.056.991.162 1.462-5.343-.269-10.089-2.831-13.265-6.711-.555.954-.875 2.067-.875 3.238 0 2.227 1.139 4.197 2.873 5.344-.951-.03-1.847-.293-2.631-.728v.081c0 3.12 2.227 5.714 5.184 6.305-.536.147-1.104.225-1.685.225-.412 0-.814-.04-.1.196-.454.494 2.227 5.714 5.184 6.305-.536.147-1.104.225-1.685.225-.412 0-.814-.04-.403-.049 2.179 2.072 5.132 3.375 8.271 3.375 9.927 0 15.335-8.239 15.335-15.336 0-.235-.005-.469-.015-.702.955-.694 1.789-1.555 2.454-2.545z"></path>
+                        <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.898-.957-2.175-1.558-3.595-1.558-3.545 0-6.427 2.882-6.427 6.427 0 .502.056.991.162 1.462-5.343-.269-10.089-2.831-13.265-6.711-.555.954-.875 2.067-.875 3.238 0 2.227 1.139 4.197 2.873 5.344-.951-.03-1.847-.293-2.631-.728v.081c0 3.12 2.227 5.714 5.184 6.305-.536.147-1.104.225-1.685.225-.412 0-.814-.04-.196-.454.494 2.227 5.714 5.184 6.305-.536.147-1.104.225-1.685.225-.412 0-.814-.04-.403-.049 2.179 2.072 5.132 3.375 8.271 3.375 9.927 0 15.335-8.239 15.335-15.336 0-.235-.005-.469-.015-.702.955-.694 1.789-1.555 2.454-2.545z"></path>
                     </svg>
                 </a>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
+    <div id="image-modal" class="modal">
+        <span class="close-btn" id="close-modal">&times;</span>
+        <div class="modal-content">
+            <img id="modal-image-full" src="" alt="Full size profile image" class="modal-image">
+        </div>
+    </div>
+
     <footer class="w-full py-8 text-center text-[#8b949e] border-t border-gray-800">
         <p>&copy; 2023 Sivaram Challa. All rights reserved.</p>
         <p class="text-sm mt-2">Designed and built with ❤️ using Tailwind CSS.</p>
@@ -227,68 +275,15 @@
             });
 
             // --- Dynamic Content Rendering ---
-            // --- Copy this section and paste into your portfolio.html file ---
-
-            const projectsData = [
-                {
-                    "title": "AI Note Summarizer",
-                    "description": "This project is a smart note-taking app that helps you better understand your notes. It uses a bit of clever code to do two things: it gives you a short summary of what you wrote and it figures out the feeling or mood of your notes, like if they sound happy or sad.",
-                    "image": "https://placehold.co/600x400/21262d/c9d1d9?text=AI+Note+Summarizer",
-                    "sourceCodeUrl": "https://github.com/sivaram-challa"
-                },
-                {
-                    "title": "Disease Predictor Bot",
-                    "description": "An AI predictive model that analyzes patient scans using a vg-19 neural network to identify potential diseases. The project features a full-stack architecture with JavaScript, React.js, and Node.js for the frontend and Python with Flask Server for the backend, utilizing MongoDB for database management.",
-                    "image": "https://placehold.co/600x400/21262d/c9d1d9?text=Disease+Predictor+Bot",
-                    "sourceCodeUrl": "https://github.com/sivaram-challa"
-                },
-                {
-                    "title": "Event Planner",
-                    "description": "A centralized platform designed to streamline event planning and coordination. It provides a hub for event details, schedules, and logistics, ensuring seamless communication among attendees. The tech stack is built on Spring Boot, using Spring MVC, Spring Socket, Spring Security, and Spring Data JPA.",
-                    "image": "https://placehold.co/600x400/21262d/c9d1d9?text=Event+Planner",
-                    "sourceCodeUrl": "https://github.com/sivaram-challa"
-                },
-                {
-                    "title": "Auto Synthesizer",
-                    "description": "The Auto Synthesizer is a genetic data generation tool developed using Python. This project utilizes leading data synthesis libraries, including the CTGAN, TVAE, and Gaussian Copula synthesizers, to create high-quality synthetic metadata that accurately mirrors real-world genetic datasets without compromising privacy.",
-                    "image": "https://placehold.co/600x400/21262d/c9d1d9?text=Auto+Synthesizer",
-                    "sourceCodeUrl": "https://github.com/sivaram-challa"
-                }
-            ];
-                        
-            const blogPostsData = [
-            {
-                "id": "tudip-journey",
-                "title": "Tudip Bound: My Journey as a New Associate Software Developer",
-                "date": "September 8, 2025",
-                "summary": "Today marks the beginning of an incredible new journey for me. I am thrilled to announce that I have joined Tudip Technologies as an Associate Software Developer! 🚀 This is more than just a job; it's an opportunity to grow, learn from some of the best in the industry, and contribute to innovative projects that make a real impact.",
-                "content": "Today marks the beginning of an incredible new journey for me. I am thrilled to announce that I have joined Tudip Technologies as an Associate Software Developer! This is more than just a job; it's an opportunity to grow, learn from some of the best in the industry, and contribute to innovative projects that make a real impact. This is the full blog post content.",
-                "url": "blogpostcre.html?id=tudip-journey"
-            },
-            {
-                "id": "competitive-coding",
-                "title": "Breaking the 1600 Barrier: My Competitive Coding Journey...!",
-                "date": "January 22, 2025",
-                "summary": "Today marks a significant milestone in my journey as a competitive programmer. I'm thrilled to announce that I've officially surpassed the 1600 rating mark on CodeChef, reaching a personal best of 1644.",
-                "content": "Today marks a significant milestone in my journey as a competitive programmer. I'm thrilled to announce that I've officially surpassed the 1600 rating mark on CodeChef, reaching a personal best of 1644. This achievement is more than just a number; it's a testament to the countless hours I've dedicated to honing my skills, the frustrating debugging sessions, and the exhilarating feeling of solving a challenging problem. This journey has been a rollercoaster of emotions, filled with moments of self-doubt and triumph.",
-                "url": "blogpostcre.html?id=competitive-coding"
-            }
-        ];
-
-            // -----------------------------------------------------------------
-            
-
             const projectsContainer = document.getElementById('projects-container');
             const blogPostsContainer = document.getElementById('blog-posts-container');
 
             function renderProjects() {
                 if (!projectsContainer) return;
-
                 projectsContainer.innerHTML = projectsData.map(project => `
                     <div class="bg-[#161b22] rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col justify-between"
                         onmouseenter="this.querySelector('.description-container').classList.add('expanded')"
                         onmouseleave="this.querySelector('.description-container').classList.remove('expanded')">
-                        
                         <div>
                             <img src="${project.image}" alt="${project.title}" class="w-full h-48 object-cover">
                             <div class="p-6">
@@ -298,7 +293,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="p-6 pt-0">
                             <div class="flex">
                                 <a href="${project.sourceCodeUrl}" class="inline-block bg-transparent border border-[#58a6ff] text-[#58a6ff] py-2 px-4 rounded-full font-semibold text-sm hover:bg-[#58a6ff] hover:text-gray-900 transition-colors duration-200">Source Code</a>
@@ -306,51 +300,66 @@
                         </div>
                     </div>
                 `).join('');
-        // Add event listeners for hover effect
-        const projectCards = document.querySelectorAll('.project-card');
-        
-        
-        projectCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.querySelector('.description-container').classList.add('expanded');
-            });
-            card.addEventListener('mouseleave', () => {
-                card.querySelector('.description-container').classList.remove('expanded');
-            });
-        });
-        }
+                const projectCards = document.querySelectorAll('.project-card');
+                projectCards.forEach(card => {
+                    card.addEventListener('mouseenter', () => {
+                        card.querySelector('.description-container').classList.add('expanded');
+                    });
+                    card.addEventListener('mouseleave', () => {
+                        card.querySelector('.description-container').classList.remove('expanded');
+                    });
+                });
+            }
 
-        function renderBlogPosts() {
-            if (!blogPostsContainer) return;
-
-            blogPostsContainer.innerHTML = blogPostsData.map(post => `
-                <div class="card bg-[#161b22] rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col justify-between"
-                    onmouseenter="this.querySelector('.description-container').classList.add('expanded')"
-                    onmouseleave="this.querySelector('.description-container').classList.remove('expanded')">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-semibold text-white mb-2">${post.title}</h3>
-                        <p class="text-[#8b949e] text-sm mb-2">Published on ${post.date}</p>
-                        
-                        <div class="description-container">
-                            <div class="short-summary" style="text-align: justify;">
-                                <p class="text-[#c9d1d9] mb-4" >${post.summary}</p>
+            function renderBlogPosts() {
+                if (!blogPostsContainer) return;
+                blogPostsContainer.innerHTML = blogPostsData.map(post => `
+                    <div class="card bg-[#161b22] rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col justify-between"
+                        onmouseenter="this.querySelector('.description-container').classList.add('expanded')"
+                        onmouseleave="this.querySelector('.description-container').classList.remove('expanded')">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-semibold text-white mb-2">${post.title}</h3>
+                            <p class="text-[#8b949e] text-sm mb-2">Published on ${post.date}</p>
+                            <div class="description-container">
+                                <div class="short-summary" style="text-align: justify;">
+                                    <p class="text-[#c9d1d9] mb-4" >${post.summary}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0">
+                            <div class="flex">
+                                <a href="${post.url}" class="text-[#58a6ff] hover:underline font-medium">Read More &rarr;</a>
                             </div>
                         </div>
                     </div>
-                    <div class="p-6 pt-0">
-                        <div class="flex">
-                            <a href="${post.url}" class="text-[#58a6ff] hover:underline font-medium">Read More &rarr;</a>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-        
+                `).join('');
+            }
             
-        renderProjects();
-        renderBlogPosts();
-    });
-    </script>
+            renderProjects();
+            renderBlogPosts();
 
+            // Modal functionality
+            const modal = document.getElementById("image-modal");
+            const profileLink = document.getElementById("profile-link");
+            const modalImage = document.getElementById("modal-image-full");
+            const closeModalBtn = document.getElementById("close-modal");
+            const profileImg = document.getElementById("profile-img");
+
+            profileLink.addEventListener("click", () => {
+                modal.classList.add("open");
+                modalImage.src = profileImg.src; // Use the same source for simplicity
+            });
+
+            closeModalBtn.addEventListener("click", () => {
+                modal.classList.remove("open");
+            });
+
+            window.addEventListener("click", (event) => {
+                if (event.target == modal) {
+                    modal.classList.remove("open");
+                }
+            });
+        });
+    </script>
 </body>
 </html>
