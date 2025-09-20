@@ -91,7 +91,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background-color: #0d1117;
     color: #c9d1d9;
     min-height: 100px;
-    margin-bottom: 2px;
 }
 .ql-container.ql-snow a {
     color: #ffffff;
@@ -102,3 +101,4 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin: 2px;
     
 }
+
