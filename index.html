@@ -20,15 +20,35 @@
             <a href="#" class="text-2xl font-bold text-gray-500 hover:text-[#58a6ff] transition-colors duration-200">
                 <span class="text-white">dev.</span><span class="text-[#58a6ff]">folio</span>
             </a>
-            <div class="flex-grow-0 md:flex-grow flex justify-end items-center space-x-4 md:space-x-8">
-                <a href="#about" class="text-white text-lg hover:text-[#58a6ff] transition-colors duration-200 scroll-to-section hidden md:block">About</a>
-                <a href="#projects" class="text-white text-lg hover:text-[#58a6ff] transition-colors duration-200 scroll-to-section hidden md:block">Projects</a>
-                <a href="#blog" class="text-white text-lg hover:text-[#58a6ff] transition-colors duration-200 scroll-to-section hidden md:block">Blog</a>
-                <a href="#contact" class="text-white text-lg hover:text-[#58a6ff] transition-colors duration-200 scroll-to-section hidden md:block">Contact</a>
+            <button id="mobile-menu-toggle" class="md:hidden text-white hover:text-[#58a6ff] transition-colors duration-200 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            <div class="hidden md:flex flex-grow-0 md:flex-grow justify-end items-center space-x-4 md:space-x-8">
+                <a href="#about" class="text-white text-lg hover:text-[#58a6ff] transition-colors duration-200 scroll-to-section">About</a>
+                <a href="#projects" class="text-white text-lg hover:text-[#58a6ff] transition-colors duration-200 scroll-to-section">Projects</a>
+                <a href="#blog" class="text-white text-lg hover:text-[#58a6ff] transition-colors duration-200 scroll-to-section">Blog</a>
+                <a href="#contact" class="text-white text-lg hover:text-[#58a6ff] transition-colors duration-200 scroll-to-section">Contact</a>
                 <a href="Sivaram_Challa_Resume.pdf" target="_blank" class="bg-[#58a6ff] text-gray-900 py-2 px-6 rounded-full font-semibold hover:bg-[#79c0ff] transition-colors duration-200 shadow-lg">Resume</a>
             </div>
         </nav>
     </header>
+
+    <div id="mobile-menu" class="hidden fixed top-0 left-0 w-full h-full bg-[#0d1117] z-40 transition-transform duration-300 ease-in-out transform -translate-y-full md:hidden">
+        <div class="flex flex-col items-center justify-center h-full space-y-8 text-xl">
+            <button id="close-mobile-menu" class="absolute top-8 right-8 text-white hover:text-[#58a6ff] focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <a href="#about" class="text-white hover:text-[#58a6ff] scroll-to-section">About</a>
+            <a href="#projects" class="text-white hover:text-[#58a6ff] scroll-to-section">Projects</a>
+            <a href="#blog" class="text-white hover:text-[#58a6ff] scroll-to-section">Blog</a>
+            <a href="#contact" class="text-white hover:text-[#58a6ff] scroll-to-section">Contact</a>
+            <a href="Sivaram_Challa_Resume.pdf" target="_blank" class="bg-[#58a6ff] text-gray-900 py-3 px-8 rounded-full font-semibold hover:bg-[#79c0ff] transition-colors duration-200 shadow-xl">Resume</a>
+        </div>
+    </div>
 
     <main class="w-full">
         <section id="hero" class="relative flex flex-col items-center justify-center min-h-screen px-6 text-center pt-24 pb-12 fade-in">
@@ -196,6 +216,31 @@
             // --- Dynamic Content Rendering ---
             const projectsContainer = document.getElementById('projects-container');
             const blogPostsContainer = document.getElementById('blog-posts-container');
+
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const closeMobileMenu = document.getElementById('close-mobile-menu');
+
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex', 'translate-y-0');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+            });
+
+            closeMobileMenu.addEventListener('click', () => {
+                mobileMenu.classList.remove('flex', 'translate-y-0');
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = 'auto'; // Re-enable scrolling
+            });
+
+            // Close menu on link click
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('flex', 'translate-y-0');
+                    mobileMenu.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                });
+            });
 
             function renderProjects() {
                 if (!projectsContainer) return;
