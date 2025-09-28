@@ -12,7 +12,6 @@
     <script src="data.js"></script>
 </head>
 
-
 <body class="overflow-x-hidden">
 
     <header class="w-full py-4 px-6 md:px-12 fixed top-0 z-50 bg-[#0d1117] bg-opacity-80 backdrop-blur-sm transition-all duration-300">
@@ -20,15 +19,35 @@
             <a href="#" class="text-2xl font-bold text-gray-500 hover:text-[#58a6ff] transition-colors duration-200">
                 <span class="text-white">dev.</span><span class="text-[#58a6ff]">folio</span>
             </a>
-            <div class="flex-grow-0 md:flex-grow flex justify-end items-center space-x-4 md:space-x-8">
-                <a href="#about" class="text-white text-lg hover:text-[#58a6ff] transition-colors duration-200 scroll-to-section hidden md:block">About</a>
-                <a href="#projects" class="text-white text-lg hover:text-[#58a6ff] transition-colors duration-200 scroll-to-section hidden md:block">Projects</a>
-                <a href="#blog" class="text-white text-lg hover:text-[#58a6ff] transition-colors duration-200 scroll-to-section hidden md:block">Blog</a>
-                <a href="#contact" class="text-white text-lg hover:text-[#58a6ff] transition-colors duration-200 scroll-to-section hidden md:block">Contact</a>
+            <button id="mobile-menu-toggle" class="md:hidden text-white hover:text-[#58a6ff] transition-colors duration-200 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            <div class="hidden md:flex flex-grow-0 md:flex-grow justify-end items-center space-x-4 md:space-x-8">
+                <a href="#about" class="text-white text-lg hover:text-[#58a6ff] transition-colors duration-200 scroll-to-section">About</a>
+                <a href="#projects" class="text-white text-lg hover:text-[#58a6ff] transition-colors duration-200 scroll-to-section">Projects</a>
+                <a href="#blog" class="text-white text-lg hover:text-[#58a6ff] transition-colors duration-200 scroll-to-section">Blog</a>
+                <a href="#contact" class="text-white text-lg hover:text-[#58a6ff] transition-colors duration-200 scroll-to-section">Contact</a>
                 <a href="Sivaram_Challa_Resume.pdf" target="_blank" class="bg-[#58a6ff] text-gray-900 py-2 px-6 rounded-full font-semibold hover:bg-[#79c0ff] transition-colors duration-200 shadow-lg">Resume</a>
             </div>
         </nav>
     </header>
+
+    <div id="mobile-menu" class="hidden fixed top-0 left-0 w-full h-full bg-[#0d1117] z-40 transition-transform duration-300 ease-in-out transform -translate-y-full md:hidden">
+        <div class="flex flex-col items-center justify-center h-full space-y-8 text-xl">
+            <button id="close-mobile-menu" class="absolute top-8 right-8 text-white hover:text-[#58a6ff] focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <a href="#about" class="text-white hover:text-[#58a6ff] scroll-to-section">About</a>
+            <a href="#projects" class="text-white hover:text-[#58a6ff] scroll-to-section">Projects</a>
+            <a href="#blog" class="text-white hover:text-[#58a6ff] scroll-to-section">Blog</a>
+            <a href="#contact" class="text-white hover:text-[#58a6ff] scroll-to-section">Contact</a>
+            <a href="Sivaram_Challa_Resume.pdf" target="_blank" class="bg-[#58a6ff] text-gray-900 py-3 px-8 rounded-full font-semibold hover:bg-[#79c0ff] transition-colors duration-200 shadow-xl">Resume</a>
+        </div>
+    </div>
 
     <main class="w-full">
         <section id="hero" class="relative flex flex-col items-center justify-center min-h-screen px-6 text-center pt-24 pb-12 fade-in">
@@ -61,10 +80,10 @@
             <p class="text-center text-lg text-[#8b949e] max-w-3xl mx-auto mb-12">A little bit about my journey and the technologies I love to work with.</p>
             <div class="flex flex-col md:flex-row items-center md:items-start justify-center md:space-x-12">
                 <div class="w-full md:w-1/2 mb-8 md:mb-0">
-                    <p class="text-lg text-[#c9d1d9] leading-relaxed mb-6 text-justify">
+                    <p class="text-lg text-[#c9d1d9] leading-relaxed mb-6 text-justify-improved paragraph-indent">
                         I am a proactive Electronics and Communication Engineering graduate from the "National Institute of Technology Warangal". My academic career has provided me with a strong foundation in core principles like data structures and algorithms, and software engineering, which are essential for building robust applications.
                     </p>
-                    <p class="text-lg text-[#c9d1d9] leading-relaxed text-justify">
+                    <p class="text-lg text-[#c9d1d9] leading-relaxed text-justify-improved paragraph-indent">
                         I have hands-on experience in "Artificial Intelligence" and "Software Development", which has equipped me with the analytical and problem-solving skills necessary to build meaningful applications that address real-world challenges. My work is defined by a commitment to clean code and an iterative approach, always striving to create seamless and delightful user experiences.
                     </p>
                 </div>
@@ -154,7 +173,7 @@
     </div>
 
     <footer class="w-full py-8 text-center text-[#8b949e] border-t border-gray-800">
-        <p>&copy; 2023 Sivaram Challa. All rights reserved.</p>
+        <p>&copy; 2025 Sivaram Challa. All rights reserved.</p>
         <p class="text-sm mt-2">Designed and built with ❤️ using Tailwind CSS.</p>
         <p class="text-sm mt-2">This portfolio template was generated by Gemini AI.</p>
     </footer>
@@ -197,71 +216,114 @@
             const projectsContainer = document.getElementById('projects-container');
             const blogPostsContainer = document.getElementById('blog-posts-container');
 
-            function renderProjects() {
-                if (!projectsContainer) return;
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const closeMobileMenu = document.getElementById('close-mobile-menu');
 
-                // First, clear the container to avoid duplicates
-                projectsContainer.innerHTML = projectsData.map(project => `
-                    <div class="project-card bg-[#161b22] rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col justify-between">
-                        <div>
-                            <img src="${project.image}" alt="${project.title}" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-2xl font-semibold text-white mb-2">${project.title}</h3>
-                                <div class="description-container" style="text-align: justify;">
-                                    <p class="text-[#8b949e] mb-4" style="text-align: justify;">${project.description}</p>
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex', 'translate-y-0');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+            });
+
+            closeMobileMenu.addEventListener('click', () => {
+                mobileMenu.classList.remove('flex', 'translate-y-0');
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = 'auto'; // Re-enable scrolling
+            });
+
+            // Close menu on link click
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('flex', 'translate-y-0');
+                    mobileMenu.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                });
+            });
+
+            function handleCardInteractions(container) {
+                if (!container) return;
+                container.addEventListener('click', (event) => {
+                    const card = event.target.closest('.project-card, .card');
+                    if (card) {
+                        const description = card.querySelector('.description-container');
+                        description.classList.toggle('expanded');
+                    }
+                });
+            }
+
+            function renderProjects() {
+                if (!projectsContainer || typeof projectsData === 'undefined') {
+                    console.error("Projects container or data is missing. Cannot render projects.");
+                    return;
+                }
+
+                // Since project.description already contains HTML (including <p> and justification classes),
+                // we use it directly without any string manipulation.
+                const projectCardsHTML = projectsData.map(project => {
+                    return `
+                        <div class="project-card bg-[#161b22] rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col justify-between">
+                            <div>
+                                <img src="${project.image}" alt="${project.title}" class="w-full h-48 object-cover">
+                                <div class="p-6">
+                                    <h3 class="text-2xl font-semibold text-white mb-2">${project.title}</h3>
+                                    <div class="description-container">
+                                        <div class="text-[#8b949e] mb-4"> 
+                                            ${project.description}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6 pt-0">
+                                <div class="flex">
+                                    <a href="${project.sourceCodeUrl}" class="inline-block bg-transparent border border-[#58a6ff] text-[#58a6ff] py-2 px-4 rounded-full font-semibold text-sm hover:bg-[#58a6ff] hover:text-gray-900 transition-colors duration-200">Source Code</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="p-6 pt-0">
-                            <div class="flex">
-                                <a href="${project.sourceCodeUrl}" class="inline-block bg-transparent border border-[#58a6ff] text-[#58a6ff] py-2 px-4 rounded-full font-semibold text-sm hover:bg-[#58a6ff] hover:text-gray-900 transition-colors duration-200">Source Code</a>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
+                    `;
+                }).join('');
 
-                // Add a single event listener to the parent container
-                projectsContainer.addEventListener('mouseenter', (event) => {
-                    const projectCard = event.target.closest('.project-card');
-                    if (projectCard) {
-                        projectCard.querySelector('.description-container').classList.add('expanded');
-                    }
-                }, true); // The `true` argument is for capture phase, which can be useful
-
-                projectsContainer.addEventListener('mouseleave', (event) => {
-                    const projectCard = event.target.closest('.project-card');
-                    if (projectCard) {
-                        projectCard.querySelector('.description-container').classList.remove('expanded');
-                    }
-                }, true);
+                projectsContainer.innerHTML = projectCardsHTML;
             }
 
+            // Function for rendering BLOG POSTS
             function renderBlogPosts() {
                 if (!blogPostsContainer) return;
-                blogPostsContainer.innerHTML = blogPostsData.map(post => `
-                    <div class="card bg-[#161b22] rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col justify-between"
-                        onmouseenter="this.querySelector('.description-container').classList.add('expanded')"
-                        onmouseleave="this.querySelector('.description-container').classList.remove('expanded')">
-                        <div class="p-6">
-                            <h3 class="text-2xl font-semibold text-white mb-2">${post.title}</h3>
-                            <p class="text-[#8b949e] text-sm mb-2">Published on ${post.date}</p>
-                            <div class="description-container">
-                                <div class="short-summary" style="text-align: justify;">
-                                    ${post.summary}
+
+                // 1. Format the summary to handle line breaks and spaces (for better justification)
+                const blogPostsHTML = blogPostsData.map(post => {
+                    // Line break fix: If post.summary is plain text, replace \n with <br>
+                    const formattedSummary = post.summary.replace(/\n/g, '<br>');
+                    
+                    return `
+                        <div class="card bg-[#161b22] rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col justify-between">
+                            <div class="p-6">
+                                <h3 class="text-2xl font-semibold text-white mb-2">${post.title}</h3>
+                                <p class="text-[#8b949e] text-sm mb-2">Published on ${post.date}</p>
+                                <div class="description-container">
+                                    <div class="short-summary dynamic-justification">
+                                        ${formattedSummary}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6 pt-0">
+                                <div class="flex">
+                                    <a href="${post.url}" class="text-[#58a6ff] hover:underline font-medium">Read More &rarr;</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="p-6 pt-0">
-                            <div class="flex">
-                                <a href="${post.url}" class="text-[#58a6ff] hover:underline font-medium">Read More &rarr;</a>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
+                    `;
+                }).join('');
+
+                // **Correct:** Assigns to the blog posts container
+                blogPostsContainer.innerHTML = blogPostsHTML;
             }
-            
+
             renderProjects();
             renderBlogPosts();
+
+            handleCardInteractions(projectsContainer);
+            handleCardInteractions(blogPostsContainer);
 
             // Modal functionality
             const modal = document.getElementById("image-modal");

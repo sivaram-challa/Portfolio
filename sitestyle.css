@@ -6,39 +6,13 @@ body {
     color: #c9d1d9;
 }
 
-/* Updated text-justify-improved for better results */
 .text-justify-improved {
     text-align: justify;
-    hyphens: auto;
-    -webkit-hyphens: auto;
+    word-spacing: -2px; /* A slight negative value can help */
+    letter-spacing: -0.5px; /* A very slight negative value */
     -moz-hyphens: auto;
-    word-spacing: -2px;
-    letter-spacing: -0.5px;
-}
-
-/* portfolio_style.css */
-
-/* 1. Define the class that came from your data (likely from a rich text editor like Quill) */
-.ql-align-justify {
-    text-align: justify;
-    hyphens: auto;
     -webkit-hyphens: auto;
-    -moz-hyphens: auto;
-    color: #c9d1d9;
-    word-spacing: -1px;
-}
-
-/* 2. Optional: A more targeted way to ensure all project descriptions are justified */
-#projects-container .project-card .description-container p {
-    text-align: justify;
     hyphens: auto;
-    -webkit-hyphens: auto;
-    -moz-hyphens: auto;
-}
-
-/* 3. Global Text Color Fix (Since you removed the color class from the outer div) */
-#projects-container .project-card .description-container {
-    color: #8b949e; /* Apply the correct text color */
 }
 
 .paragraph-indent {
@@ -83,7 +57,7 @@ body {
 /* The hover effect for desktop browsers */
 .project-card:hover .description-container,
 .card:hover .description-container {
-    max-height: 30em;
+    max-height: 20em;
 }
 
 /* Modal styles */
@@ -136,12 +110,11 @@ body {
     color: #ccc;
 }
 
-/* The previous class was removed and a new one was implemented in the JS */
 .card-justification {
     text-align: justify;
     hyphens: auto;
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
-    word-spacing: -1px;
-    letter-spacing: -0.2px;
+    word-spacing: -1px; 
+    letter-spacing: -0.2px; 
 }
